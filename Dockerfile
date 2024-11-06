@@ -1,9 +1,22 @@
+# Use Ubuntu as the base image
 FROM ubuntu:latest
-RUN apt install -y apache2 \
-zip \
-unzip
-ADD https://github.com/nyrahul/wisecow.git /var/www/html/
-WORKDIR /var/www/html/
-RUN wisecow.sh
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-EXPOSE 80
+
+# Install cowsay, fortune, and netcat
+RUN apt update && \
+    apt install -y cowsay fortune netcat && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the bash script into the container and name it server.sh
+COPY server.sh /app/server.sh
+
+# Make the script executable
+RUN chmod +x /app/server.sh
+
+# Expose the port that the script will use
+EXPOSE 4499
+
+# Set the entry point to run the script
+ENTRYPOINT ["/app/server.sh"]
