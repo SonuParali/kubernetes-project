@@ -1,22 +1,21 @@
-# Use Ubuntu as the base image
+# Using Ubuntu as the base image
 FROM ubuntu:latest
 
-# Install cowsay, fortune, and netcat
+# Installation of server
 RUN apt update && \
-    apt install -y cowsay fortune netcat && \
-    rm -rf /var/lib/apt/lists/*
+    apt install -y apache2
 
-# Set the working directory
+# Working directory
 WORKDIR /app
 
-# Copy the bash script into the container and name it server.sh
+# Copying the bash script into the container
 COPY server.sh /app/server.sh
 
-# Make the script executable
+# Making the script executable
 RUN chmod +x /app/server.sh
 
-# Expose the port that the script will use
+# Exposing the port that the script will use
 EXPOSE 4499
 
-# Set the entry point to run the script
+# Setting entry point to run the script
 ENTRYPOINT ["/app/server.sh"]

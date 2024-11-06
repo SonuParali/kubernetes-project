@@ -1,0 +1,10 @@
+wisecow/
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml        # GitHub Actions workflow file
+├── kubernetes/
+│   ├── deployment.yaml      # Kubernetes Deployment manifest
+│   ├── service.yaml         # Kubernetes Service manifest
+│   └── ingress.yaml         # Optional Ingress with TLS
+├── Dockerfile               # Dockerfile for the application
+└── app/                     # Wisecow application code
